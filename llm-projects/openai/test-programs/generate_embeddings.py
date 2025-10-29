@@ -1,11 +1,13 @@
+
 import openai
 import httpx
 import json
 import os
 
-# Read API key from file
-with open("openai/openai_api_key.txt", "r") as f:
-    api_key = f.read().strip()
+# Read API key from environment variable
+api_key = os.environ.get("OPENAI_API_KEY")
+if not api_key:
+    raise RuntimeError("OPENAI_API_KEY environment variable not set.")
 
 client = openai.OpenAI(
     api_key=api_key,

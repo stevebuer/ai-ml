@@ -1,7 +1,10 @@
+
+import os
 from openai import OpenAI
 
-with open("api_key.txt", "r") as f:
-    api_key = f.read().strip()
+api_key = os.environ.get("OPENAI_API_KEY")
+if not api_key:
+    raise RuntimeError("OPENAI_API_KEY environment variable not set.")
 
 client = OpenAI(api_key=api_key)
 

@@ -6,9 +6,9 @@ google-ai/api_key.txt
 
 # input / output files
 
-llm-projects/openai/resume-matcher/resume.md 
-llm-projects/openai/resume-matcher/resume.md 
-llm-projects/openai/resume-matcher/job-description.txt 
-llm-projects/openai/resume-matcher/match_report.txt 
-llm-projects/openai/test-programs/embeddings.json 
-llm-projects/openai/test-programs/input.txt 
+llm-projects/resume-matcher/resume.md 
+llm-projects/resume-matcher/resume.md 
+llm-projects/resume-matcher/job-description.txt 
+llm-projects/resume-matcher/match_report.txt 
+llm-projects/test-programs/embeddings.json 
+llm-projects/test-programs/input.txt 

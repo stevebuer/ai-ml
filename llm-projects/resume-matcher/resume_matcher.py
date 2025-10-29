@@ -8,10 +8,11 @@ import pdfplumber
 
 def main():
     parser = argparse.ArgumentParser(description="Resume Matcher")
-    parser.add_argument("--resume", required=True, help="Path to resume file (.md or .pdf)")
-    parser.add_argument("--jobdesc", required=True, help="Path to job description file")
-    parser.add_argument("--output", required=True, help="Path to output match report file")
+    parser.add_argument("--resume", help="Path to resume file (.md or .pdf)")
+    parser.add_argument("--jobdesc", help="Path to job description file")
+    parser.add_argument("--output", help="Path to output match report file")
     parser.add_argument("--model", default="gpt-4o", help="OpenAI model name (default: gpt-4o)")
+    parser.add_argument("--list-models", action="store_true", help="List available models via the OpenAI API and exit")
     args = parser.parse_args()
 
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -23,6 +24,22 @@ def main():
         api_key=api_key,
         http_client=httpx.Client(verify=False)
     )
+
+    if args.list_models:
+        try:
+            models = client.models.list()
+            print("Available models:")
+            for model in models.data:
+                print(model.id)
+        except Exception as e:
+            print("Failed to list models.")
+            print("Error:", e)
+        sys.exit(0)
+
+    # Require resume, jobdesc, and output unless --list-models is used
+    if not (args.resume and args.jobdesc and args.output):
+        print("--resume, --jobdesc, and --output are required unless --list-models is used.")
+        sys.exit(1)
 
     resume_path = args.resume
     jd_path = args.jobdesc
